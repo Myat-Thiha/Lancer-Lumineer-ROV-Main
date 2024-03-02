@@ -93,6 +93,9 @@ trigger_button = [False, False]  # Initialize False Boolean values for Left Butt
 max_value = 80  # After some tests with the claw, 0-80 is the ideal safe operating range for the claw (0 = fully closed, 80 = fully opened.)
 min_value = 0
 clawValue = 0
+clawRotate = 0
+max_Rotate = 180
+min_Rotate = 0
 # Initialize joystick
 joystick = None
 if pygame.joystick.get_count() == 0:
@@ -163,6 +166,21 @@ while True:
         clawValue = clawValue
     elif trigger_button[1] == False:
         clawValue = clawValue
+    elif trigger_button[2] == True:
+        if clawRotate >= max_value:
+            clawRotate = max_Rotate
+        else:
+            clawRotate += 5
+    elif trigger_button[2] == False:
+        clawRotate = clawRotate
+    elif trigger_button[3] == True:
+        if clawRotate <= min_Rotate:
+            clawRotate = min_Rotate
+        else:
+            clawRotate -= 5
+    elif trigger_button[3] == False:
+        clawRotate = clawRotate
+
 
 # Commands to send ROV
     commands = {}  # define python dictionary
